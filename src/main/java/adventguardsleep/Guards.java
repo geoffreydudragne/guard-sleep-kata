@@ -12,7 +12,7 @@ import java.util.TreeSet;
 
 public class Guards {
 
-    public static void main(String[] args) throws Exception {
+    static GuardKataResult guardKata() throws Exception {
         List<String> input = Files.readAllLines(Paths.get(Guards.class.getResource("problem-input.txt").toURI()));
         SortedSet<String> objects = new TreeSet<>(input);
 
@@ -83,9 +83,7 @@ public class Guards {
             }
         }
 
-        int result = guardWithBiggestSleepTime * minuteWhenSleepingMost.getMinute();
-
-        System.out.println("Answer part 1: " + result);
+        int result1 = guardWithBiggestSleepTime * minuteWhenSleepingMost.getMinute();
 
         //Guard sleeping the more frequently at wich minute
         int guardId = 0;
@@ -104,7 +102,25 @@ public class Guards {
             }
         }
 
-        System.out.println("Answer part 2: " + guardId * minuteWhereSleepingTheMore.getMinute());
+        int result2 = guardId * minuteWhereSleepingTheMore.getMinute();
+
+        return new GuardKataResult(result1, result2);
+    }
+
+    public static void main(String[] args) throws Exception {
+        GuardKataResult guardKataResult = guardKata();
+        System.out.println("Answer part 1: " + guardKataResult.part1);
+        System.out.println("Answer part 2: " + guardKataResult.part2);
+    }
+
+    static class GuardKataResult {
+        final int part1;
+        final int part2;
+
+        GuardKataResult(int part1, int part2) {
+            this.part1 = part1;
+            this.part2 = part2;
+        }
     }
 
 }
